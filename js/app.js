@@ -16,7 +16,7 @@
 
 
 /*-------------------------------- Constants --------------------------------*/
-const choices = ['X', 'O', ' ']
+//const choices = ['X', 'O', ' ']
 const winningCombos = [
     [0, 1, 2,],
     [3, 4, 5,],
@@ -29,10 +29,10 @@ const winningCombos = [
 ]
 
 /*---------------------------- Variables (state) ----------------------------*/
-let board = ['', '', '', '', '', '', '', '', '',]
-let turn = 'X';
-let winner = true;
-let tie = true;
+let board;
+let turn;
+let winner;
+let tie;
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -42,7 +42,10 @@ const resetBtnEl = document.querySelector('#reset')
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
-
+    let board = ['', '', '', '', '', '', '', '', '',]
+    let turn = 'X'
+    let winner = false
+    let tie = false
 
     render()
 };
@@ -78,25 +81,24 @@ function updateMessage() {
 }
 
 function handleClick(event){
-    const squareIndex = event.target.id;
-    console.log(winner);
-    placePeace(squareIndex)
-    checkForWinner();
-    checkForTie();
-    switchPlayerTurn();
-  if (board[squareIndex] === 'X' || board[squareIndex] === 'O') {
-    return
-  }
-  if (winner === true){
-    return
-  }
-  
-}
+    function handleClick(event){
+        const squareIndex = event.target.id;
+        placePiece(squareIndex);
+        checkForWinner();
+        checkForTie();
+        switchPlayerTurn(); 
+        if (board[squareIndex] === 'X' || board[squareIndex] === 'O') {
+          return
+        }
+        if (winner === true){
+          return
+        } console.log(squareIndex);
+        
+      }
 function placePeace(index){
     board[index] = turn 
-   console.log(board);
-
 }
+
 function checkForWinner() {
     if (
         (board[0] !== "" && board[0] === board[1] && board[0] === board[2]) ||
@@ -115,7 +117,7 @@ function checkForWinner() {
 function checkForTie() {
     if (winner = true){
         return
-    } else if (board[index] = '') {
+    } else if (board.includes('')) {
         tie = false
     } else {
         tie = true
@@ -145,4 +147,5 @@ squaredEls.forEach(square => {
     square.addEventListener('click', handleClick);
 });
 reset.addEventListener('click', init);
-init()
+
+init()}
